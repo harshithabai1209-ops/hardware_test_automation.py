@@ -1,25 +1,26 @@
-"""
-PDN Automated Test Script
-Target: Digantara Satellite Payload PDN Validation
-Author: Harshitha Bai C
-Description: Automates the verification of +3.6V, +1.8V, +3.3V, and +2.5V 
-             voltage rails and logs average DC values via PyVISA.
-"""
+# PDN Automated Test Automation Framework
 
-import pyvisa
-import time
-import csv
-from datetime import datetime
+This repository contains the automated test script used to qualify the Power Distribution Network (PDN) designed for satellite payload subsystems. 
 
-# Define rail specifications and tolerances
-RAIL_SPECS = {
-    "+3V6": {"nominal": 3.6, "tolerance": 0.05},
-    "+1V8": {"nominal": 1.8, "tolerance": 0.05},
-    "+3V3": {"nominal": 3.3, "tolerance": 0.05},
-    "+2V5": {"nominal": 2.5, "tolerance": 0.05}
-}
+## Overview
+The framework connects directly to programmable lab instrumentation to execute automated cross-rail voltage sequencing checks and measure baseline rail telemetry.
 
-def run_pdn_validation():
+### Supported Lab Instrumentation
+* **Programmable DC Power Supply:** Keithley 2230-30-1
+* **Digital Oscilloscope:** Keysight DSOX6004A
+* **Digital Multimeter:** Keithley DMM6500
+
+## Script Capabilities
+* **Automated Instrumentation Control:** Uses SCPI commands via `PyVISA` to control input power grids.
+* **Tolerance Validation:** Dynamically checks output levels against the designated strict $\pm5\%$ flight hardware parameter limits.
+* **Telemetric Data Logging:** Auto-saves time-stamped metrics to a shareable structured CSV profile for validation compliance.
+
+## Getting Started
+
+### Prerequisites
+Ensure your local testing terminal environment includes the national instruments VISA layer and the Python dependencies:
+```bash
+pip install pyvisa
     print("Initializing Automated PDN Test Sequence...")
     rm = pyvisa.ResourceManager()
     
